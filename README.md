@@ -11,6 +11,9 @@ Cloud watch :
 ALB :
 <img width="1097" height="477" alt="image" src="https://github.com/user-attachments/assets/c5a37464-8d00-4627-8d6c-ab3e3f10c494" />
 
+Secret Manager:
+<img width="1393" height="495" alt="image" src="https://github.com/user-attachments/assets/c64257e0-cb4d-4e40-9993-f6ad56777d5b" />
+
 RDS - mysql -
 <img width="1097" height="236" alt="image" src="https://github.com/user-attachments/assets/cd7d13c0-3d17-49c4-8ce3-e1af84252c75" />
 
