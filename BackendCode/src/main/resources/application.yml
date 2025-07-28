@@ -3,11 +3,13 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://<yourRDSEndPoint>:3306/<UseYourDATABASE>
-    username: admin #For testing
-    password: Passw0rd!123 #For testing
+    # url: jdbc:mysql://<yourRDSEndPoint>:3306/<UseYourDATABASE>?createDatabaseIfNotExist=true
+    # username: admin #For testing
+    # password: Passw0rd!123 #For testing
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql=true
     hibernate:
       ddl-auto: none
+      format_sql=true
     defer-datasource-initialization: true
