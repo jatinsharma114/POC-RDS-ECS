@@ -1,9 +1,9 @@
 # ➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤➤
 
-# ➤ IAM Role for Task Execution
+# ➤ IAM Role for Task Execution using Trust Policy. 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_attach" {
   role       = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy" # (AmazonECSTaskExecutionRolePolicy) Creation November 17, 2017, 00:18 (UTC+05:30)
 }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
@@ -13,30 +13,16 @@ resource "aws_iam_role" "ecs_task_execution_role" {
     Version = "2012-10-17",
     Statement = [
       {
-        # This principal is allowed to assume this IAM role and use its permissions.”
-        # that's how it normally works in IAM permission policies — but sts:AssumeRole is a special case, 
-        # because it deals with identity not with a specific AWS resource like EC2 or S3.
-        Action = "sts:AssumeRole",
+        # STS - Token Generate - { Trust Policy } we are using. 
+        # ECS Assume this Role and ECS service generate the Role to Access the ECS service. 
+        Action = "sts:AssumeRole", #  AWS Security Token Service 
         Effect = "Allow",
         Principal = {
-          Service = "ecs-tasks.amazonaws.com" 
-          # built-in AWS Service Principal. It is not something you create 
-          # it is managed by AWS and used to identify the Amazon ECS Tasks service when assuming IAM roles.
+          Service = "ecs-tasks.amazonaws.com"
         }
       }
     ]
   })
 }
 
-
-# Note:-
-#Yes, the role you created is the one you must create yourself.
-#AWS does not create the task-execution role automatically; 
-#it only creates the “ecsTaskExecutionRole” for you if you run a task via the console and tick “Auto-create IAM role”.
-#When you use Terraform, you must declare both:
-#The IAM role (aws_iam_role.ecs_task_execution_role).
-#The attachment of the managed policy (AmazonECSTaskExecutionRolePolicy).
-#So the two blocks you have are exactly what you need:
-#aws_iam_role → trust policy for ecs-tasks.amazonaws.com
-#aws_iam_role_policy_attachment → gives the role permission to pull images, write CloudWatch logs, fetch Secrets Manager values, etc.
-
+# Note : ECS Assume this Role - generate the token with the Action (STS) to access the ECR (by using the AmazonECSTaskExecutionRolePolicy)
