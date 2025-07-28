@@ -15,8 +15,8 @@ resource "aws_lb" "ecs_alb" {
 }
 
 # Target Group -- ECS (targetting to router the traffic)
-resource "aws_lb_target_group" "application_load_balancer_target_group" {
-  name     = "application_load_balancer_target_group"
+resource "aws_lb_target_group" "alb_target_group" {
+  name     = "alb-target-group"
   port     = 8082 # conatiner application run on the PORT 8082 
   protocol = "HTTP"
   vpc_id   = var.vpc_id
@@ -43,7 +43,7 @@ resource "aws_lb_listener" "ecs_listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.application_load_balancer_target_group.arn # If traffic is coming at pot 80 I am forwarding to the ECS(Target Group) 
+    target_group_arn = aws_lb_target_group.alb_target_group.arn # If traffic is coming at pot 80 I am forwarding to the ECS(Target Group) 
   }
 }
 
