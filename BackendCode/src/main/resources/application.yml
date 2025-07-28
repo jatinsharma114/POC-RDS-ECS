@@ -8,8 +8,8 @@ spring:
     # password: Passw0rd!123 #For testing
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
-    show-sql=true
+    show-sql: true
     hibernate:
       ddl-auto: none
-      format_sql=true
+      format_sql: true
     defer-datasource-initialization: true
