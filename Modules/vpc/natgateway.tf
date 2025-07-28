@@ -53,7 +53,7 @@ resource "aws_route_table" "private_rt_netgateway_1b" {
 ########################################
 # 4. Associate private subnets → NAT RTs
 ########################################
-resource "aws_route_table_association" "private_rt_assoc_1a" {
+resource "aws_route_table_association" "private_rt_assoc_us-east_1a" {
   subnet_id      = aws_subnet.private_subnet_us-east-1a.id
   route_table_id = aws_route_table.private_rt_netgateway_1a.id
 }
