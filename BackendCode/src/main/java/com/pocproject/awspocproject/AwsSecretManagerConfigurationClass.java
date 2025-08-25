@@ -29,6 +29,9 @@ public class AwsSecretManagerConfigurationClass {
     // @Value("${cloud.aws.credentials.secret-key}")
     // private String secretkey;
 
+    private static final String RDS_SECRET_NAME = "rds-secret";
+    private static final String REGION = "us-east-1";
+
     private Gson gson = new Gson();
 
     @Bean
@@ -46,10 +49,9 @@ public class AwsSecretManagerConfigurationClass {
 
     public AwsSecrets getSecret() {
 
-        String secretName = "rds-secret";
-        Region region = Region.of("us-east-1");
+        Region region = Region.of(REGION);
 
-        AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKey, secretkey);
+//        AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKey, secretkey);
 
         // Create a Secrets Manager client
         SecretsManagerClient client = SecretsManagerClient.builder()
@@ -58,7 +60,7 @@ public class AwsSecretManagerConfigurationClass {
                 .build();
 
         GetSecretValueRequest getSecretValueRequest = GetSecretValueRequest.builder()
-                .secretId(secretName)
+                .secretId(RDS_SECRET_NAME)
                 .build();
 
         GetSecretValueResponse getSecretValueResponse;
